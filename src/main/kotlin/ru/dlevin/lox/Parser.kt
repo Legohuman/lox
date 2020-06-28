@@ -5,13 +5,13 @@ import ru.dlevin.lox.TokenType.*
 /**
  * Lox grammar
  *
- * expression → literal | unary | binary | grouping ;
- *
- * literal    → NUMBER | STRING | "false" | "true" | "nil" ;
- * grouping   → "(" expression ")" ;
- * unary      → ( "-" | "!" ) expression ;
- * binary     → expression operator expression ;
- * operator   → "==" | "!=" | "<" | "<=" | ">" | ">=" | "+"  | "-"  | "*" | "/" ;
+ * expression     → equality ;
+ * equality       → comparison ( ( "!=" | "==" ) comparison )* ;
+ * comparison     → addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
+ * addition       → multiplication ( ( "-" | "+" ) multiplication )* ;
+ * multiplication → unary ( ( "/" | "*" ) unary )* ;
+ * unary          → ( "!" | "-" ) unary | primary ;
+ * primary        → NUMBER | STRING | "false" | "true" | "nil" | "(" expression ")" ;
  */
 class Parser(private val tokens: List<Token>) {
     private var current = 0
